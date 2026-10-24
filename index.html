@@ -25,18 +25,30 @@
 </head>
 <body>
 <h1>影片商品連結</h1>
+<p>本日選物。此頁含分潤連結。</p>
 <input id="q" inputmode="numeric" placeholder="輸入影片上的編號，例如 12">
 <ul id="list">
+
+  <li data-no="2">
+    <a class="item" href="https://s.shopee.tw/7Aea92A5DS" rel="nofollow sponsored">
+      <span class="no">#2</span>
+      
+      <span class="name">寵物玩具 發聲寵物玩具 耐咬寵物玩具 藏食寵物玩具 貓狗寵物玩具 解悶寵物玩具 防拆寵物玩具 自嗨寵物玩具 漏食寵物玩具</span>
+    </a>
+  </li>
 
 </ul>
 <script>
   const q = document.getElementById("q");
-  q.addEventListener("input", () => {
+  const filter = () => {
     const v = q.value.trim();
-    for (const li of document.querySelectorAll("#list li")) {
-      li.hidden = v !== "" && li.dataset.no !== v;
+    for (const [index, li] of [...document.querySelectorAll("#list li")].entries()) {
+      li.hidden = v ? li.dataset.no !== v : index >= 60;
     }
-  });
+  };
+  q.addEventListener("input", filter);
+  const hash = location.hash.slice(1);
+  if (/^\d+$/.test(hash)) { q.value = hash; filter(); }
 </script>
 </body>
 </html>
